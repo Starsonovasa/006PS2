@@ -109,7 +109,12 @@ class Max_Heap:
 
     # TODO
     def max_heap_modify(self, key, data):
-        pass
+        # So what I need to do is use the key_to_index dictionary to get the index
+        # to update the value of the grade and then use heapify to fix everything. If I'm correct,
+        # heapify calls max_heapify on the correct values, and max_heapify runs in log n time\
+        index_of_key_data = self.key_to_index[key]
+        self.data[index_of_key_data] = data
+        self.heapify()
 
     def maximum(self):
         return (self.keys[0], self.data[0])
@@ -235,7 +240,9 @@ class Min_Heap:
 
     # TODO
     def min_heap_modify(self, key, data):
-        pass
+        index_of_key_data = self.key_to_index[key]
+        self.data[index_of_key_data] = data
+        self.heapify()
 
     def minimum(self):
         return (self.keys[0], self.data[0])
