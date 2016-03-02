@@ -1,0 +1,51 @@
+Create a dictionary where the keys are the names of the students. The values for each student would be a tuple of the form:
+
+(Sum of grades, Sum of credits)
+
+And the tuple can be replaced by a new tuple every time a new grade is entered
+
+
+Now as for that data structure, you're going to want to make the dictionary defined in part c).
+Then, using the heap definitions we had before in part A and part B, we're going to add
+
+
+%%% Have to have more students above than below the k average students if the number is odd.
+%%% So if the max pile is larger than or equal to the min pile, you take the top of the min
+%%% pile. Or actually, you always take the smaller of the two elements at the root of the
+%%% two heaps. I have to be careful not to make it n log n by rebalancing the trees too much
+
+%%% No. Here's what happens. You always take the top element if the piles are different sizes.
+%%% However, if the piles are the same size, then you take whatever element is smaller. In this
+%%% way, you will either have the same number of "larger" and "smaller" median elements, or you
+%%% will have one more "larger" element.
+
+%%% Or should I just make two min heaps? Cause with two min heaps, the top element is the smallest....
+%%% No, I'll only get the smallest elements. I could literally take the top elements off of
+%%% each heap, and then I'll be left with the middle k elements in both heaps. I just have
+%%% to continually extract max and extract min. But instead, I'm always taking off the larger
+%%% of the elements when the heaps are the same size so that there is one more element in the
+%%% "larger pile".
+
+
+%%% Or actually, if the min heap starts off with more elements than the max heap, you take the
+%%% elements off of the min heap and toss them into the max heap and heapify.
+%%% But in essence, when creating the heaps, you toss them into the max heap first.....
+%%% Or do you first toss one into the max heap pile, toss one into the min heap pile, then toss
+%%% them into a pile depending on whether they are larger than the max or smaller than the min?
+%%% Until the sizes of the two heaps differ by one. Then you auto toss them into the opposite
+%%% heap. With this method, you'll definitely end up with the possibility of the min heap being
+%%% larger. That's not necessarily a problem....is it? It is, because then, with the way that
+%%% I was thinking about popping elements off, if the min heap started off larger, then I would end
+%%% with either equal or more "smaller" elements. I could then just take the root off of the min
+%%% heap and heapify....And then, if the top of the min heap had originally been the smallest
+%%% element of the entire list, it would be at the very bottom of the max heap. In essence, it
+%%% would be treated as a median value with my mental-code. Epic fail
+
+%%% No, I need to somehow get the big elements into the min heap, and all of the small elements
+%%% into the max heap. That way, the min of the big elements and the max of the small elements
+%%% are the median values. Then you always pick first from the max of the small elements so 
+%%% that there will always be equal or more "larger" elements.
+
+%%% So the hardest part of this code is determining what elements end up in the large and small
+%%% piles. Once that part is taken care of, everything becomes straightforward with the idea
+%%% that I had in the previous paragraph.
